@@ -7,8 +7,9 @@
 					<img :src="swiper.image_src">
 				</view>
 			</swiper-item>
-			
+	
 		</swiper>
+	</view>
 		
 </template>
 
