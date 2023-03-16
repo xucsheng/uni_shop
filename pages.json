@@ -12,6 +12,26 @@
 		}
 	},
 	"pages": [
+		
+		
+		{
+		    "path" : "pages/tabBar/home/home",                                                                                   
+		    "style": {
+		    	"navigationBarTitleText": "首页",
+		    	"app-plus": {
+		    		"bounce": "vertical",
+		    		"titleNView": {
+		    			"buttons": [{
+		    				"text": "\ue534",
+		    				"fontSrc": "/static/uni.ttf",
+		    				"fontSize": "22px",
+		    				"color": "#FFFFFF"
+		    			}]
+		    		}
+		    	}
+		    }
+		    
+		},
 		// pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/tabBar/component/component",
@@ -1347,7 +1367,7 @@
 		"borderStyle": "black",
 		"backgroundColor": "#F8F8F8",
 		"list": [{
-				"pagePath": "pages/tabBar/component/component",
+				"pagePath": "pages/tabBar/home/home",
 				"iconPath": "static/tab_icons/home.png",
 				"selectedIconPath": "static/tab_icons/home-active.png",
 				"text": "首页"
