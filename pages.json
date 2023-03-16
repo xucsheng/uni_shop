@@ -346,8 +346,9 @@
         },
         "disableScroll": true
     }
-}
-],
+} 
+        
+    ],
 	"subPackages": [{
 			"root": "pages/API",
 			"pages": [{
@@ -1324,7 +1325,7 @@
 	],
 	"globalStyle": {
 		"pageOrientation": "portrait",
-		"navigationBarTitleText": "Hello uniapp",
+		"navigationBarTitleText": "黑马优购",
 		"navigationBarTextStyle": "white",
 		"navigationBarBackgroundColor": "#007AFF",
 		"backgroundColor": "#F8F8F8",
@@ -1347,25 +1348,25 @@
 		"backgroundColor": "#F8F8F8",
 		"list": [{
 				"pagePath": "pages/tabBar/component/component",
-				"iconPath": "static/component.png",
-				"selectedIconPath": "static/componentHL.png",
-				"text": "内置组件"
+				"iconPath": "static/tab_icons/home.png",
+				"selectedIconPath": "static/tab_icons/home-active.png",
+				"text": "首页"
 			},
 			{
 				"pagePath": "pages/tabBar/API/API",
-				"iconPath": "static/api.png",
-				"selectedIconPath": "static/apiHL.png",
-				"text": "接口"
+				"iconPath": "static/tab_icons/category.png",
+				"selectedIconPath": "static/tab_icons/category-active.png",
+				"text": "分类"
 			}, {
 				"pagePath": "pages/tabBar/extUI/extUI",
-				"iconPath": "static/extui.png",
-				"selectedIconPath": "static/extuiHL.png",
-				"text": "扩展组件"
+				"iconPath": "static/tab_icons/cart.png",
+				"selectedIconPath": "static/tab_icons/cart-active.png",
+				"text": "购物车"
 			}, {
 				"pagePath": "pages/tabBar/template/template",
-				"iconPath": "static/template.png",
-				"selectedIconPath": "static/templateHL.png",
-				"text": "模板"
+				"iconPath": "static/tab_icons/my.png",
+				"selectedIconPath": "static/tab_icons/my-active.png",
+				"text": "我的"
 			}
 		]
 	},
