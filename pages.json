@@ -32,6 +32,24 @@
 		    }
 		    
 		},
+		{
+		    "path" : "pages/tabBar/cate/cate",
+		   "style": {
+		   	"navigationBarTitleText": "分类",
+		   	"app-plus": {
+		   		"bounce": "vertical",
+		   		"titleNView": {
+		   			"buttons": [{
+		   				"text": "\ue534",
+		   				"fontSrc": "/static/uni.ttf",
+		   				"fontSize": "22px",
+		   				"color": "#FFFFFF"
+		   			}]
+		   		}
+		   	}
+		   }
+		    
+		},
 		// pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/tabBar/component/component",
@@ -366,10 +384,31 @@
         },
         "disableScroll": true
     }
-} 
-        
+}   
     ],
 	"subPackages": [{
+		"root":"subpackages",
+		"pages": [
+			{
+                    "path" : "goods_detail/goods_detail",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+                ,{
+                    "path" : "goods_list/goods_list",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+            ]},
+		{
 			"root": "pages/API",
 			"pages": [{
 					"path": "login/login",
@@ -1373,7 +1412,7 @@
 				"text": "首页"
 			},
 			{
-				"pagePath": "pages/tabBar/API/API",
+				"pagePath": "pages/tabBar/cate/cate",
 				"iconPath": "static/tab_icons/category.png",
 				"selectedIconPath": "static/tab_icons/category-active.png",
 				"text": "分类"
