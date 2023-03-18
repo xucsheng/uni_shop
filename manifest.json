@@ -99,7 +99,7 @@
         "appid" : "wx6976853b9e7edf7a",
         "setting" : {
             "urlCheck" : false,
-			"checkSiteMap":false
+            "checkSiteMap" : false
         },
         "usingComponents" : true,
         "permission" : {

@@ -407,6 +407,15 @@
                 }
                 
                 }
+                ,{
+                    "path" : "search/search",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
             ]},
 		{
 			"root": "pages/API",
@@ -1386,7 +1395,7 @@
 		"pageOrientation": "portrait",
 		"navigationBarTitleText": "黑马优购",
 		"navigationBarTextStyle": "white",
-		"navigationBarBackgroundColor": "#007AFF",
+		"navigationBarBackgroundColor": "#c00000",
 		"backgroundColor": "#F8F8F8",
 		"backgroundColorTop": "#F4F5F6",
 		"backgroundColorBottom": "#F4F5F6",

@@ -1,5 +1,8 @@
 <template>
 	<view>
+		<!--自定义的搜索组件-->
+		<!-- <my-search :bgColor="'pink'" :radius="3"></my-search>-->
+		<my-search @click="gotoSearch"></my-search>
 		<view class="scroll-view-container">
 			<!--左侧滑动区域-->
 			<scroll-view class="left-scroll-view"   scroll-y :style="{height: wh + 'px'}">
@@ -8,14 +11,14 @@
 				</block>
 			</scroll-view>
 			<!--右侧滑动区域-->
-			<scroll-view class="right-scroll-view"  scroll-y :style="{height: wh + 'px'}">
+			<scroll-view class="right-scroll-view"   :scroll-top="scrollTop"  scroll-y :style="{height: wh + 'px'}">
 				<view class="cate-lv2"  v-for="(item2,index) in cateLevel2" :key="index">
 					<!--二级分类标题-->
 					<view class="cate-lv2-title">/{{item2.cat_name}}/</view>
 					<!--动态渲染三级分类的类别数据-->
 					<view class="cate-lv3-list">
 						<!--三级分类的item项-->
-						<view class="cate-lv3-item" v-for="(cateLevel3,i) in item2.children" :key="i">
+						<view class="cate-lv3-item" v-for="(cateLevel3,i) in item2.children" :key="i" @click="gotoGoodsList(cateLevel3)">
 							<!--三级分类的图片-->
 							<image :src="cateLevel3.cat_icon.replace('dev','web')"></image>
 							<!--三级分类的文本-->
@@ -29,6 +32,7 @@
 </template>
 
 <script>
+	
 	export default {
 		data() {
 			return {
@@ -39,14 +43,16 @@
 				active:0,
 				// 二级分类列表
 			    cateLevel2: [],
+				// 滑动滚轮定位坐标
+				scrollTop:0
 			}
 		},
 		onLoad(){
 			// 获取当前系统的信息
 			const sysInfo = uni.getSystemInfoSync();
 			//console.log(sysInfo);
-			// 为 wh 窗口可用高度动态赋值
-			this.wh = sysInfo.windowHeight;
+			// 为 wh 窗口可用高度动态赋值 50是搜索页面大小
+			this.wh = sysInfo.windowHeight-50;
 			this.getCateList();
 			
 		},
@@ -64,6 +70,20 @@
 				this.active = index;
 				// 重新为二级分类赋值
 				this.cateLevel2 = this.cateList[index].children;
+				this.scrollTop = this.scrollTop === 0 ? 1: 0;
+			},
+			// 调转到三级页面
+			gotoGoodsList(cateLevel3){
+				uni.navigateTo({
+					url:'/subpackages/goods_list/goods_list?cid='+cateLevel3.cat_id,
+				})
+				
+			},
+			// 跳转到搜索页面
+			gotoSearch(){
+				uni.navigateTo({
+					url:'/subpackages/search/search',
+				   })
 			}
 		}
 	}

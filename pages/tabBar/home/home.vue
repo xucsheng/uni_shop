@@ -1,5 +1,10 @@
 <template>
 	<view>
+		<!--搜索组件-->
+		<view class="search-box">
+			<my-search @click="gotoSearch"></my-search>
+		</view>
+		
 		<!--轮播图区域-->
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
 			<swiper-item v-for="(swiper,index) in swiperList" :key="swiper.goods_id">
@@ -93,6 +98,11 @@
 					})
 				})
 				this.floorList = res.message;
+			},
+			gotoSearch(){
+				uni.navigateTo({
+					url:'/subpackages/search/search',
+				   })
 			}
 		}
 	}
@@ -128,6 +138,14 @@ swiper{
 .floor-img-box{
 	display: flex;
 	padding: 10rpx;
+}
+.search-box{
+	// 设置定位效果为“吸顶”
+	position: sticky;
+	// 吸顶的位置
+	top: 0;
+	// 提高吸顶，防止被轮播图覆盖
+	z-index: 999;
 }
 </style>
 
