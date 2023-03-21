@@ -48,7 +48,6 @@
 		async onLoad(option){
 			const goods_id = option.goods_id;
 			const {data:res} = await uni.$http.get('/api/public/v1/goods/detail',{goods_id});
-			console.log(res);
 			if(res.meta.status !== 200){
 				return uni.$showMsg();
 			}
