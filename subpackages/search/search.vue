@@ -16,13 +16,12 @@
 			<!--标题区-->
 			<view class="history-title">
 				<tex>搜索历史</tex>
-				<uni-icons type="trash" size="17"></uni-icons>
+				<uni-icons type="trash" size="17" @click="clean"></uni-icons>
 				
 			</view>
 			<!--历史区域-->
 			<view class="hostory-list">
-				<uni-tag :text="item" v-for="(item,index) in histories" :key="index"></uni-tag>
-				
+				<uni-tag :text="item" v-for="(item,index) in histories" :key="index" @click="gotoGoodsList(item)"></uni-tag>
 			</view>
 			
 		</view>
@@ -38,9 +37,12 @@
 				// 搜索的结果列表
 				searchResults:[],
 				// 搜索历史记录
-				historyList:['a','apple','app']
+				historyList:[]
 				
 			};
+		},
+		onLoad(){
+		   this.historyList = JSON.parse(uni.getStorageSync('kw')||'[]');
 		},
 		 methods:{
 			 // input输入事件的处理函数
@@ -61,7 +63,7 @@
 				const {data:res} = await uni.$http.get('/api/public/v1/goods/qsearch',{query:this.kw});
 			    // console.log(res);
 				if(res.meta.status !==200){
-					return uni.$showMessage();
+					return uni.$showMsg();
 				}
 			    this.searchResults =  res.message;
 				// 保存历史记录
@@ -79,6 +81,17 @@
 				 set.delete(this.kw);
 				 set.add(this.kw);
 				 this.historyList = Array.from(set);
+				 // 对搜索历史数据进行持久化存储
+				 uni.setStorageSync('kw',JSON.stringify(this.historyList));
+			 },
+			 clean(){
+				  this.historyList =[];
+				  uni.setStorageSync('kw','[]');
+			 },
+			 gotoGoodsList(kw){
+				 uni.navigateTo({
+				 	url:'/subpackages/goods_list/goods_list?query='+kw,
+				 })
 			 },
 			 
 		 },
