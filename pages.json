@@ -50,6 +50,23 @@
 		   }
 		    
 		},
+		{
+		    "path" : "pages/tabBar/cart/cart",
+		  "style": {
+		  	"navigationBarTitleText": "购物车",
+		  	"app-plus": {
+		  		"bounce": "vertical",
+		  		"titleNView": {
+		  			"buttons": [{
+		  				"text": "\ue534",
+		  				"fontSrc": "/static/uni.ttf",
+		  				"fontSize": "22px",
+		  				"color": "#FFFFFF"
+		  			}]
+		  		}
+		  	}
+		  } 
+		},
 		// pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/tabBar/component/component",
@@ -385,6 +402,7 @@
         "disableScroll": true
     }
 }   
+       
     ],
 	"subPackages": [{
 		"root":"subpackages",
@@ -1428,7 +1446,7 @@
 				"selectedIconPath": "static/tab_icons/category-active.png",
 				"text": "分类"
 			}, {
-				"pagePath": "pages/tabBar/extUI/extUI",
+				"pagePath": "pages/tabBar/cart/cart",
 				"iconPath": "static/tab_icons/cart.png",
 				"selectedIconPath": "static/tab_icons/cart-active.png",
 				"text": "购物车"

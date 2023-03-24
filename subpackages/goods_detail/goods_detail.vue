@@ -1,5 +1,5 @@
 <template>
-	<view v-if="goods_info.goods_name">
+	<view v-if="goods_info.goods_name" class="goods-detail-container">
 		
 		<!--轮播图区域-->
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000":duration="1000" :circular="true">
@@ -29,6 +29,10 @@
 			</view>
 			
 			<rich-text :nodes="goods_info.goods_introduce"></rich-text>
+			<!--商品导航组件区域-->
+			<view class="goods-nav">
+					<uni-goods-nav :fill="true"  :options="options" :buttonGroup="buttonGroup"  @click="onClick" @buttonClick="buttonClick" />
+			</view>
 			
 		</view>
 		
@@ -42,8 +46,31 @@
 			return {
 				// 商品详情对象
 				goods_info:{},
-				
-			};
+			    options: [{
+						icon: 'headphones',
+						text: '客服'
+					}, {
+						icon: 'shop',
+						text: '店铺',
+						infoBackgroundColor:'#007aff',
+						infoColor:"red"
+					}, {
+						icon: 'cart',
+						text: '购物车',
+						info: 9
+					}],
+				    buttonGroup: [{
+				      text: '加入购物车',
+				      backgroundColor: '#ff0000',
+				      color: '#fff'
+				    },
+				    {
+				      text: '立即购买',
+				      backgroundColor: '#ffa200',
+				      color: '#fff'
+				    }
+				    ]
+				  }
 		},
 		async onLoad(option){
 			const goods_id = option.goods_id;
@@ -64,6 +91,19 @@
 				})
 				
 			},
+			onClick (e) {
+				console.log(e)
+				if(e.content.text ==='购物车'){
+					uni.switchTab({
+						url:'/pages/tabBar/cart/cart'
+					})
+					
+				}
+			 },
+			buttonClick (e) {
+				console.log(e)
+				 this.options[2].info++
+			}
 		},
 	}
 </script>
@@ -118,5 +158,16 @@ height: 750rpx;
 		margin: 10px 0;
 	 }
 }
+.goods-nav{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	
+}
+.goods-detail-container{
+	padding-bottom: 50px;
+}
+
 
 </style>
