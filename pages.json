@@ -67,6 +67,25 @@
 		  	}
 		  } 
 		},
+		
+		{
+		    "path" : "pages/tabBar/my/my",
+		  "style": {
+		  	"navigationBarTitleText": "我的",
+		  	"app-plus": {
+		  		"bounce": "vertical",
+		  		"titleNView": {
+		  			"buttons": [{
+		  				"text": "\ue534",
+		  				"fontSrc": "/static/uni.ttf",
+		  				"fontSize": "22px",
+		  				"color": "#FFFFFF"
+		  			}]
+		  		}
+		  	}
+		  } 
+		},
+		
 		// pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/tabBar/component/component",
@@ -402,8 +421,7 @@
         "disableScroll": true
     }
 }   
-       
-    ],
+],
 	"subPackages": [{
 		"root":"subpackages",
 		"pages": [
@@ -1451,7 +1469,7 @@
 				"selectedIconPath": "static/tab_icons/cart-active.png",
 				"text": "购物车"
 			}, {
-				"pagePath": "pages/tabBar/template/template",
+				"pagePath": "pages/tabBar/my/my",
 				"iconPath": "static/tab_icons/my.png",
 				"selectedIconPath": "static/tab_icons/my-active.png",
 				"text": "我的"

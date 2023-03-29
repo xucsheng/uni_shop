@@ -1,5 +1,5 @@
 import App from './App'
-import store from './store'
+import store from './store/index.js'
 // 导入网络请求的包
 import { $http } from '@escook/request-miniprogram'
 uni.$http = $http

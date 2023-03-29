@@ -45,7 +45,9 @@
 </template>
 
 <script>
+	import bedgeMix from "@/mixinx/tabbar-badge.js"
 	export default {
+		mixins:[bedgeMix],
 		data() {
 			return {
 				// 这是轮播图的数据列表

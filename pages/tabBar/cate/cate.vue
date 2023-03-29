@@ -32,8 +32,9 @@
 </template>
 
 <script>
-	
+	import bedgeMix from "@/mixinx/tabbar-badge.js"
 	export default {
+		mixins:[bedgeMix],
 		data() {
 			return {
 				// 当前设备可使用的高度
