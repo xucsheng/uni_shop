@@ -25,12 +25,47 @@ export default{
 		 SAVETOSTORAGE(state){
 			 uni.setStorageSync('cart', JSON.stringify(state.cart));
 		 },
+		 UPDATAGOODSSTATE(state,goods){
+			 const findResult = state.cart.find(x=>x.goods_id === goods.goods_id);
+			 if(findResult){
+				 findResult.goods_state = goods.goods_state
+				 //  通过 commit 方法，调用 m_cart 命名空间下的 saveToStorage 方法
+				 this.commit('m_cart/SAVETOSTORAGE');
+			 }
+		 },
+		 UPDATEGOODSNUMBER(state,goods){
+			 const findResult = state.cart.find(x=>x.goods_id === goods.goods_id);
+			 if(findResult){
+			 	findResult.goods_count = goods.goods_count
+			  //  通过 commit 方法，调用 m_cart 命名空间下的 saveToStorage 方法
+			  this.commit('m_cart/SAVETOSTORAGE');
+			 }
+		 },
+		 REMOVEGOODSBYID(state,goods){
+			 const findResult = state.cart.filter(x=>x.goods_id !== goods.goods_id);
+			 state.cart = findResult;
+			 //  通过 commit 方法，调用 m_cart 命名空间下的 saveToStorage 方法
+			 this.commit('m_cart/SAVETOSTORAGE');
+		 }
 		
 	 },
 	 actions:{
+		 // 添加购物车
 		 addToCart({commit},goods){
 	    	commit('ADDTOCART',goods);
 		 },
+		 // 更新购物车勾选状态
+		 updateGoodsState({commit},goods){
+			 commit('UPDATAGOODSSTATE',goods);
+		 },
+		 //  更新商品数量
+		 updateGoodsNumber({commit},goods){
+			  commit('UPDATEGOODSNUMBER',goods);
+		 },
+		 // 删除商品
+		 removeGoodsById({commit},goods){
+			 commit('REMOVEGOODSBYID',goods);
+		 }
 	},
 	getters:{
 		total(state){
