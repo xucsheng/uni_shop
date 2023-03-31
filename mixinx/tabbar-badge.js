@@ -15,5 +15,10 @@ export default {
 				text: this.total+'',
 			})
 		},
+	},
+	watch:{
+		total(){
+			this.setBadge();
+		}
 	}
 }

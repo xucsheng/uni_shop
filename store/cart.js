@@ -46,7 +46,12 @@ export default{
 			 state.cart = findResult;
 			 //  通过 commit 方法，调用 m_cart 命名空间下的 saveToStorage 方法
 			 this.commit('m_cart/SAVETOSTORAGE');
-		 }
+		 },
+		 UPDATEALLGOODSSTATE(state,newState){
+			 state.cart.forEach(item=>item.goods_state = newState);
+			 //  通过 commit 方法，调用 m_cart 命名空间下的 saveToStorage 方法
+			 this.commit('m_cart/SAVETOSTORAGE');
+		},
 		
 	 },
 	 actions:{
@@ -65,15 +70,27 @@ export default{
 		 // 删除商品
 		 removeGoodsById({commit},goods){
 			 commit('REMOVEGOODSBYID',goods);
+		 },
+		 // 更新使用商品的勾选状态
+		 updateAllGoodsState({commit},newState){
+			 commit('UPDATEALLGOODSSTATE',newState);
+			 
 		 }
 	},
 	getters:{
 		total(state){
-			let c = 0;
-			state.cart.forEach(x=>c+=x.goods_count);
-			return c;
-			
+			// let c = 0;
+			// state.cart.forEach(x=>c+=x.goods_count);
+			// return c;
+			return state.cart.reduce((total,item)=>total+=item.goods_count,0);
+		},
+		checkedCount(state){
+			return state.cart.filter(x=>x.goods_state).reduce((total,item)=>total+=item.goods_count,0);
+		},
+		chechedAmount(state){
+			return state.cart.filter(x=>x.goods_state).reduce((total,item)=>total+=item.goods_count*item.goods_price,0).toFixed(2);
 		}
+		
 		
 	}
 	

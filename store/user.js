@@ -15,7 +15,8 @@ export default {
 		leftWinActive: '/pages/component/view/view',
 		activeOpen: '',
 		menu: [],
-		univerifyErrorMsg: ''
+		univerifyErrorMsg: '',
+		address: JSON.parse(uni.getStorageSync('address')|| '{}') ,
 	},
 	mutations: {
 		login(state, provider) {
@@ -59,7 +60,16 @@ export default {
 		},
 		setUniverifyErrorMsg(state,payload = ''){
 			state.univerifyErrorMsg = payload
+		},
+		UPDATEADDRESS(state,address){
+			state.address = address;
+			this.commit('user/SAVEADDRESSTOSTORAGE')
+		},
+		// 持久化收货地址
+		SAVEADDRESSTOSTORAGE(state){
+			uni.setStorageSync('address',JSON.stringify(state.address));
 		}
+		
 	},
 	
 	actions: {
@@ -112,11 +122,22 @@ export default {
 					}
 				})
 			})
+		},
+		updateAddress({commit},address){
+			commit('UPDATEADDRESS',address);
+			
 		}
 	},
 	getters: {
 		currentColor(state) {
 			return state.colorList[state.colorIndex]
 		},
+		addstr(state){
+			if(state.address.provinceName === ''){
+				return '';
+			}else{
+				return state.address.provinceName+state.address.cityName+state.address.countyName+state.address.detailInfo;
+			}
+		}
 	},
 }
