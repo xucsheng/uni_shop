@@ -17,6 +17,9 @@ export default {
 		menu: [],
 		univerifyErrorMsg: '',
 		address: JSON.parse(uni.getStorageSync('address')|| '{}') ,
+		token:'',
+		// 用户信息对象
+		userinfo : {},
 	},
 	mutations: {
 		login(state, provider) {
@@ -63,12 +66,19 @@ export default {
 		},
 		UPDATEADDRESS(state,address){
 			state.address = address;
-			this.commit('user/SAVEADDRESSTOSTORAGE')
+			this.commit('user/SAVEADDRESSTOSTORAGE');
 		},
 		// 持久化收货地址
 		SAVEADDRESSTOSTORAGE(state){
 			uni.setStorageSync('address',JSON.stringify(state.address));
-		}
+		},
+		UPDATEUSERINFO(state,userinfo){
+			state.userinfo = userinfo;
+			this.commit('user/SAVEUSERINFOSTORAGE');
+		},
+		SAVEUSERINFOSTORAGE(state){
+			uni.setStorageSync('userinfo',JSON.stringify(state.userinfo));
+		},
 		
 	},
 	
@@ -125,7 +135,9 @@ export default {
 		},
 		updateAddress({commit},address){
 			commit('UPDATEADDRESS',address);
-			
+		},
+		updateUserInfo({commit},userinfo){
+			commit('UPDATEUSERINFO',userinfo);
 		}
 	},
 	getters: {
