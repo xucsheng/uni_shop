@@ -17,7 +17,7 @@ export default {
 		menu: [],
 		univerifyErrorMsg: '',
 		address: JSON.parse(uni.getStorageSync('address')|| '{}') ,
-		token:'',
+		token: uni.getStorageSync('token') || '',
 		// 用户信息对象
 		userinfo : {},
 	},
@@ -79,6 +79,13 @@ export default {
 		SAVEUSERINFOSTORAGE(state){
 			uni.setStorageSync('userinfo',JSON.stringify(state.userinfo));
 		},
+		UPDATETOKEN(state,token){
+			state.token = token;
+			this.commit('user/SAVETOKENTOSTORAGE');
+		},
+		SAVETOKENTOSTORAGE(state){
+			uni.setStorageSync('token',state.token);
+		}
 		
 	},
 	
@@ -138,6 +145,9 @@ export default {
 		},
 		updateUserInfo({commit},userinfo){
 			commit('UPDATEUSERINFO',userinfo);
+		},
+		updateToken({commit},token){
+			commit('UPDATETOKEN',token);
 		}
 	},
 	getters: {

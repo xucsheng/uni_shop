@@ -2,6 +2,7 @@
 	<view class="login-container">
 		<uni-icons type="contact-filled" size="100" color="#AFAFAF"></uni-icons>
 		<button type="primary" class="btn-login" open-type="getUserInfo" @getuserinfo="getUserInfo">一键登录</button>
+		<!-- <button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" type="primary">获取手机号码 </button> -->
 		<text class="tips-text">登录后尽享更多权益</text>
 	</view>
 </template>
@@ -18,7 +19,7 @@
 			};
 		},
 		methods:{
-			...mapActions('user',['updateUserInfo']),
+			...mapActions('user',['updateUserInfo','updateToken']),
 			// 获取用户基本信息
 			getUserInfo(e){
 				if (e.detail.errMsg === 'getUserInfo:fail auth deny'){
@@ -41,14 +42,17 @@
 					rawData: info.rawData,
 					signature: info.signature
 				}
-				console.log(query);
-				//const {data:loginResult} = await uni.$http.post('/api/public/v1/users/wxlogin',query);
-				//console.log(loginResult);
-				//if(loginResult.meta.status!==200){
-				//	return uni.$showMsg('登录失败！');
-				//}
-				//uni.$showMsg('登录成功！');
-			}
+				const {data:loginResult} = await uni.$http.post('/api/public/v1/users/wxlogin',query);
+				// if(loginResult.meta.status!==200){
+				// 	return uni.$showMsg('登录失败！');
+				// }
+				this.updateToken(query.code);
+				
+				uni.$showMsg('登录成功！');
+			},
+			 // getPhoneNumber (e) {
+			 //    console.log(e)
+			 //  }
 		}
 	}
 </script>
