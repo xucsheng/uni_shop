@@ -12,6 +12,13 @@ $http.beforeRequest = function (options) {
   uni.showLoading({
     title: '数据加载中...',
   })
+ // 判断当前是否有权限的接口
+  if(options.url.indexOf('/my/') !==-1){
+	  options.header= {
+		  // 字段的值可以直接从 vuex 中进行获取
+		  Authorization:store.state.user.token,
+	  }
+  }
 }
 
 // 请求完成之后做一些事情  响应拦截器

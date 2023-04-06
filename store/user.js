@@ -19,7 +19,10 @@ export default {
 		address: JSON.parse(uni.getStorageSync('address')|| '{}') ,
 		token: uni.getStorageSync('token') || '',
 		// 用户信息对象
-		userinfo : {},
+		userinfo : JSON.parse(uni.getStorageSync('userinfo') || '{}'),
+		// 重定向Object对象
+		redirectInfo: null,
+		
 	},
 	mutations: {
 		login(state, provider) {
@@ -85,6 +88,9 @@ export default {
 		},
 		SAVETOKENTOSTORAGE(state){
 			uni.setStorageSync('token',state.token);
+		},
+		UPDATEREDIRECTINFO(state,redirectInfo){
+			state.redirectInfo = redirectInfo;
 		}
 		
 	},
@@ -148,6 +154,10 @@ export default {
 		},
 		updateToken({commit},token){
 			commit('UPDATETOKEN',token);
+		},
+		updateRedirectInfo({commit},redirectInfo){
+			commit('UPDATEREDIRECTINFO',redirectInfo);
+			
 		}
 	},
 	getters: {

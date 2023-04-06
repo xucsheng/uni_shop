@@ -49,7 +49,7 @@
 					<text>退款/退货</text>
 				</view>
 				<view class="panel-item">
-					<image src="/static//image/all-orde.png" class="icon"></image>
+					<image src="/static/image/all-orde.png" class="icon"></image>
 					<text> 全部订单</text>
 				</view>
 			</view>

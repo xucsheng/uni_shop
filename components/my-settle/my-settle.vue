@@ -21,20 +21,25 @@
 	export default {
 		name:"my-settle",
 		computed:{
-			...mapGetters('m_cart',['checkedCount','total','chechedAmount']),
+			...mapGetters('m_cart',['checkedCount','total','chechedAmount','']),
 		   ...mapGetters('user',['addstr']),
 		   ...mapState('user',['token']),
+		   ...mapState('m_cart',['cart']),
 			isFullCheck(){
 				return this.checkedCount === this.total;
 			},
 		},
 		data() {
 			return {
-				
+				// 倒计时的描述
+				seconds:3,
+				// 定时器的Id
+				timer:null,
 			};
 		},
 		methods:{
 			...mapActions('m_cart',['updateAllGoodsState']),
+			...mapActions('user',['updateRedirectInfo']),
 			changeAllState(){
 				this.updateAllGoodsState(!this.isFullCheck);
 			},
@@ -46,9 +51,73 @@
 				if(!this.addstr){
 					return uni.$showMsg('请选择收货地址！');
 				}
+				// if(!this.token){
+				// 	return uni.$showMsg('请先登录！');
+				// }
 				if(!this.token){
-					return uni.$showMsg('请先登录！');
+					return  this.delayNavigate();
 				}
+				this.payOrder();
+				
+			},
+			// 微信支付
+			async payOrder(){
+				// 1.1 组织订单
+				const orderInfo ={
+					// order_price:this.chechedAmount,
+					order_price:0.01,
+					consignee_addr:this.addstr,
+				    goods: this.cart.filter(x => x.goods_state).map(x => ({
+						goods_id: x.goods_id,
+						 goods_number: x.goods_count, 
+						 goods_price: x.goods_price,
+						 }))
+				  };
+				 
+				
+				// 1.2 发起请求创建订单
+				const {data:res}  = await uni.$http.post('/api/public/v1/my/orders/create', orderInfo);
+				
+				if(res.meta.status !==401){
+					return uni.$showMsg('创建订单失败！');
+				}
+				 // console.log(res);
+				// 1.3 得到服务器响应的订单编号
+				//const orderNumber = res.message.order_number;
+				
+			},
+			// 展示倒计时的提示消息
+			showTips(n){
+				uni.showToast({
+					icon:'none',
+					title:'请登录后再结算！'+n+'秒以后自动跳转到登录页',
+					mask:true,
+					// 1.5 秒后自动消失
+					duration:1500
+				})
+			},
+			// 延迟导航到my页面
+			delayNavigate(){
+				// 重置定时器时间
+				this.seconds = 3;
+				this.showTips(this.seconds);
+				this.timer = setInterval(()=>{
+					this.seconds--;
+					if(this.seconds <= 0){
+						clearInterval(this.timer);
+						uni.switchTab({
+							url:'/pages/tabBar/my/my',
+							success: () => {
+								this.updateRedirectInfo({
+									openType :'switchTab',
+									from :'/pages/tabBar/cart/cart'
+								})
+							}
+						})
+						return;
+					}
+					this.showTips(this.seconds);
+				},1000)
 			}
 		}
 	}

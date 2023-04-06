@@ -8,10 +8,12 @@
 </template>
 
 <script>
-	import{mapActions} from 'vuex'
+	import{mapActions,mapState} from 'vuex'
 	export default {
 		name:"my-login",
 		computed:{
+			// 获取跳转前地址
+			...mapState('user',['redirectInfo'])
 		},
 		data() {
 			return {
@@ -19,7 +21,7 @@
 			};
 		},
 		methods:{
-			...mapActions('user',['updateUserInfo','updateToken']),
+			...mapActions('user',['updateUserInfo','updateToken','updateRedirectInfo']),
 			// 获取用户基本信息
 			getUserInfo(e){
 				if (e.detail.errMsg === 'getUserInfo:fail auth deny'){
@@ -49,10 +51,24 @@
 				this.updateToken(query.code);
 				
 				uni.$showMsg('登录成功！');
+				
+				this.navigateBack();
+				
 			},
 			 // getPhoneNumber (e) {
 			 //    console.log(e)
 			 //  }
+			 navigateBack(){
+				 if(this.redirectInfo &&  this.redirectInfo.openType ==='switchTab'){
+					 uni.switchTab({
+					 	url: this.redirectInfo.from,
+						complete: () => {
+							this.updateRedirectInfo(null);
+						}
+					 })
+					 
+				 }
+			 },
 		}
 	}
 </script>
