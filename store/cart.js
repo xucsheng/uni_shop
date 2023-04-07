@@ -19,7 +19,7 @@ export default{
 				findResult.goods_count++;
 			}
 			//  通过 commit 方法，调用 m_cart 命名空间下的 saveToStorage 方法
-			this.commit('m_cart/SAVETOSTORAGE');
+			this.commit('cart/SAVETOSTORAGE');
 			
 		 },
 		 SAVETOSTORAGE(state){
@@ -30,7 +30,7 @@ export default{
 			 if(findResult){
 				 findResult.goods_state = goods.goods_state
 				 //  通过 commit 方法，调用 m_cart 命名空间下的 saveToStorage 方法
-				 this.commit('m_cart/SAVETOSTORAGE');
+				 this.commit('cart/SAVETOSTORAGE');
 			 }
 		 },
 		 UPDATEGOODSNUMBER(state,goods){
@@ -38,19 +38,19 @@ export default{
 			 if(findResult){
 			 	findResult.goods_count = goods.goods_count
 			  //  通过 commit 方法，调用 m_cart 命名空间下的 saveToStorage 方法
-			  this.commit('m_cart/SAVETOSTORAGE');
+			  this.commit('cart/SAVETOSTORAGE');
 			 }
 		 },
 		 REMOVEGOODSBYID(state,goods){
 			 const findResult = state.cart.filter(x=>x.goods_id !== goods.goods_id);
 			 state.cart = findResult;
 			 //  通过 commit 方法，调用 m_cart 命名空间下的 saveToStorage 方法
-			 this.commit('m_cart/SAVETOSTORAGE');
+			 this.commit('cart/SAVETOSTORAGE');
 		 },
 		 UPDATEALLGOODSSTATE(state,newState){
 			 state.cart.forEach(item=>item.goods_state = newState);
 			 //  通过 commit 方法，调用 m_cart 命名空间下的 saveToStorage 方法
-			 this.commit('m_cart/SAVETOSTORAGE');
+			 this.commit('cart/SAVETOSTORAGE');
 		},
 		
 	 },

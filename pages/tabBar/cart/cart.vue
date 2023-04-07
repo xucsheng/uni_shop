@@ -37,7 +37,7 @@ import {mapState,mapActions} from 'vuex';
 	export default {
 		mixins:[bedgeMix],
 		computed:{
-			...mapState('m_cart',['cart']),
+			...mapState('cart',['cart']),
 		},
 		data() {
 			return {
@@ -46,13 +46,13 @@ import {mapState,mapActions} from 'vuex';
 					style:{
 						backgroundColor:'#c00000'
 					}
-				}]
-					
+				}],
+				isOpened: false,	
 				
 			}
 		},
 		methods: {
-			...mapActions('m_cart',['updateGoodsState','updateGoodsNumber','removeGoodsById']),
+			...mapActions('cart',['updateGoodsState','updateGoodsNumber','removeGoodsById']),
 			radioChangeHandler(e){
 				this.updateGoodsState(e);
 			},

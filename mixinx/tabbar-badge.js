@@ -2,7 +2,7 @@ import {mapGetters} from 'vuex';
 
 export default {
    computed:{
-	...mapGetters('m_cart',['total']),
+	...mapGetters('cart',['total']),
 			
 	},
 	onShow(){

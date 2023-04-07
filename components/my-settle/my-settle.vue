@@ -21,10 +21,10 @@
 	export default {
 		name:"my-settle",
 		computed:{
-			...mapGetters('m_cart',['checkedCount','total','chechedAmount','']),
+			...mapGetters('cart',['checkedCount','total','chechedAmount','']),
 		   ...mapGetters('user',['addstr']),
 		   ...mapState('user',['token']),
-		   ...mapState('m_cart',['cart']),
+		   ...mapState('cart',['cart']),
 			isFullCheck(){
 				return this.checkedCount === this.total;
 			},
@@ -38,7 +38,7 @@
 			};
 		},
 		methods:{
-			...mapActions('m_cart',['updateAllGoodsState']),
+			...mapActions('cart',['updateAllGoodsState']),
 			...mapActions('user',['updateRedirectInfo']),
 			changeAllState(){
 				this.updateAllGoodsState(!this.isFullCheck);
@@ -81,10 +81,31 @@
 				if(res.meta.status !==401){
 					return uni.$showMsg('创建订单失败！');
 				}
-				 // console.log(res);
 				// 1.3 得到服务器响应的订单编号
-				//const orderNumber = res.message.order_number;
-				
+				const orderNumber = res.message||'402'||res.message.order_number ;
+				// 2.1 发起请求获取订单的支付信息
+				const { data: res2 } = await uni.$http.post('/api/public/v1/my/orders/req_unifiedorder', { order_number: orderNumber });
+				// 2.2 预付款订单生产失败
+				if(res2.meta.status !==401){
+					return uni.$showMsg('预付订单失败！');
+				}
+				// 2.3 得到订单支付相关的必要参数
+				const payInfo = res2.message||{}||res2.message.pay;
+				// 3.发起微信支付
+				connst [err,succ] = await  uni.requestPayment(payInfo);
+				if(err){
+					return uni.$showMsg('订单未支付！');
+				}
+				 const { data: res3 } = await uni.$http.post('/api/public/v1/my/orders/chkOrder', { order_number: orderNumber })
+				// 3.4 检测到订单未支付
+				if (res3.meta.status !== 200){
+					return uni.$showMsg('订单未支付！');
+				} 
+				 // 3.5 检测到订单支付完成
+				 uni.showToast({
+				     title: '支付完成！',
+				     icon: 'success'
+				   })
 			},
 			// 展示倒计时的提示消息
 			showTips(n){
